@@ -1,0 +1,428 @@
+﻿@page
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@model IndexModel
+@{
+    ViewData["Title"] = "TMG Liquidity Pool";
+}
+
+    @* <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_window">
+        Launch demo modal
+     </button>*@
+
+<!-- Modal -->
+<div class="modal fade" id="modal_window" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h1 id="modal_heading_text">Error...</h1>
+                <h2 id="modal_text">Pure Vanilla JavaScript</h2>
+                
+            </div>
+            <div class="modal-footer">
+             @*    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button> *@
+@*                 <button type="button" class="btn btn-primary">Save changes</button> *@
+            </div>
+        </div>
+    </div>
+</div>
+     
+    <header>
+        <div><h2>TMG Pool - deleterium.info</h2>Buy and sell TMG tokens at Signum cryptocurrency. <small>(@Configuration["SiteSettings:Version"])</small></div>
+    </header>
+    <br />
+
+
+    <div class="info light">
+        <div class="container d-flex align-items-center justify-content-center">
+            <div class="row">
+                <div class="col align-items-start ">
+                    <div class="card" style="width: 30rem;">
+                         <div class="card-body">
+                            <h5 class="card-title">Pool info :: 1 TMG &lt;=&gt; <output id="contract_price"></output> Signa<br></h5>
+                  
+                                <table>
+                            <tr><td><strong>Pool address:&nbsp;</strong></td><td><output id="contract_rs"></output></td></tr>
+                            <tr><td><strong>Variation (24hr):&nbsp;</strong></td><td><output id="contract_variation_24hr"></output></td></tr>
+                            <tr><td><strong>Volume (24hr):&nbsp;</strong></td><td><output id="contract_volume_24hr"></output> Signa</td></tr>
+                            <tr><td><strong>Pool size:&nbsp;</strong></td><td><output id="contract_signa"></output> Signa x <output id="contract_tmg"></output> TMG</td></tr>
+                            <tr><td><strong>Liquidity:&nbsp;</strong></td><td><output id="contract_liquidity"></output> lcTMG</td></tr>
+                            <tr><td><strong>Pool owner:&nbsp;</strong></td><td><output id="contract_owner"></output></td></tr>
+                                </table>                          
+                        </div>
+                    </div>
+                </div>
+                <div class="col align-items-center">
+                    
+                </div>
+                <div class="col align-items-end">
+                <div class="card" style="width: 30rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-auto">
+										<output id="user_rs"></output>
+                                    </div>
+                                    <div class="col-md-auto">
+                                        <div>
+										<div name="linked" style="display: none;"><button id="btn_unlink" class="btn btn-primary">Unlink</button></div>
+										<div name="unlinked"><button id="btn_link" class="btn btn-primary">Connect to XT wallet</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>                           
+                        </h5>
+                        <div class="modal" id="modal_window">
+                            <div class="modal-bg modal-exit"></div>
+                            <div class="modal-container">
+                                <h1 id="modal_heading_text">Error...</h1>
+                                <h2 id="modal_text">Pure Vanilla JavaScript</h2>
+                                <button class="modal-close modal-exit">X</button>
+                            </div>
+                        </div>
+                        <div class="box" name="linked" style="display: none;"> 
+                            <table>
+                                <tr><td><strong>Name:</strong></td><td><output id="user_name"></output></td></tr>
+                                <tr><td><strong>Signa:</strong></td><td><output id="user_signa"></output> (+<output id="user_signa_locked"></output> locked)</td></tr>
+                                <tr><td><strong>TMG:</strong></td><td><output id="user_tmg"></output> (+<output id="user_tmg_locked"></output> locked)</td></tr>
+                                <tr><td><strong>lcTMG:&nbsp;</strong></td><td><output id="user_lctmg"></output> (+<output id="user_lctmg_locked"></output> locked)</td></tr>
+                                <tr><td><strong>Liquidity:&nbsp;</strong></td><td><output id="user_liquidity_signa"></output> Signa and <output id="user_liquidity_tmg"></output> TMG</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+       
+
+        </div>
+
+    </div>
+
+    <br />
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="container d-flex align-items-center justify-content-center">
+                    <div class="card text-center" style="width: 30rem;">
+                        @*          <img src="..." class="card-img-top" alt="..."> *@
+                        <div class="card-body">
+                            <h5 class="card-title">Remove Liquidity</h5>
+@*                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> *@
+                            <table>
+                                <tr><td>lcTMG to remove:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_remove_lctmg"></td></tr>
+                                <tr><td>Operational costs:&nbsp;</td><td><output id="remove_op_cost"></output> Signa</td></tr>
+                                <tr><td>Signa to receive:</td><td><output id="remove_signa"></output></td></tr>
+                                <tr><td>TMG to receive:</td><td><output id="remove_tmg"></output></td></tr>
+                                <tr><td>-</td></tr>
+                            </table>
+                            <button id="btn_remove" class="btn btn-primary hundred">Remove</button><br>
+                            @*                             <a href="#" class="btn btn-primary">Go somewhere</a> *@
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="carousel-item">
+                <div class="container d-flex align-items-center justify-content-center">
+                    <div class="card text-center" style="width: 30rem;">
+                        @*          <img src="..." class="card-img-top" alt="..."> *@
+                        <div class="card-body">
+                            <h5 class="card-title">Add Liquidity</h5>
+@*                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> *@
+                            <table>
+                            <tr><td>TMG to add:</td><td> <input class="input-group"  type="number" style="width: 25ch;" id="ipt_add_tmg"></td></tr>
+                            <tr><td>Signa to add:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_add_signa"></td></tr>
+                                <tr><td>Operational costs:&nbsp;</td><td><output id="add_op_cost"></output> Signa</td></tr>
+                                <tr><td>To be refunded:</td><td><output id="add_refunded_signa"></output> Signa and <output id="add_refunded_tmg"></output> TMG</td></tr>
+                                <tr><td>Added liquidity:</td><td><output id="add_lctmg"></output> lcTMG</td></tr>                               
+                            </table>
+                            <button id="btn_add" class="btn btn-primary hundred">Add</button><br>
+                            @* <a href="#" class="btn btn-primary">Go somewhere</a> *@
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="carousel-item">
+                <div class="container d-flex align-items-center justify-content-center">
+                    <div class="card text-center" style="width: 30rem;">
+                        @*          <img src="..." class="card-img-top" alt="..."> *@
+                        <div class="card-body">
+                            <h5 class="card-title">Sell TMG</h5>
+@*                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> *@
+                            <table>
+                            <tr><td>TMG to sell:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_sell_tmg"></td></tr>
+                                <tr><td>Effective price:</td><td><output id="sell_effective_price"></output> Signa</td></tr>
+                                <tr><td>Price impact:</td><td><output id="sell_price_impact"></output>%</td></tr>
+                                <tr><td>Operational costs:&nbsp;</td><td><output id="sell_op_cost_signa"></output> Signa and <output id="sell_op_cost_tmg"></output> TMG</td></tr>
+                            <tr><td>Signa to receive:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_sell_signa"></td></tr>
+                            </table>
+                            <button id="btn_sell" class="btn btn-primary hundred">Sell</button><br>
+                            @* <a href="#" class="btn btn-primary">Go somewhere</a> *@
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="carousel-item">
+                <div class="container d-flex align-items-center justify-content-center">
+                    <div class="card text-center" style="width: 30rem;">
+                        @*          <img src="..." class="card-img-top" alt="..."> *@
+                        <div class="card-body">
+                            <h5 class="card-title">Buy TMG</h5>
+@*                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> *@
+                            <table>
+                            <tr><td>TMG to buy:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_buy_tmg"></td></tr>
+                                <tr><td>Effective price:</td><td><output id="buy_effective_price"></output> Signa</td></tr>
+                                <tr><td>Price impact:</td><td><output id="buy_price_impact"></output>%</td></tr>
+                                <tr><td>Operational costs:&nbsp;</td><td><output id="buy_op_cost"></output> Signa</td></tr>
+                            <tr><td>Total cost:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_buy_signa"></td></tr>
+                            </table>
+                            <button id="btn_buy" class="btn btn-primary hundred">Buy</button>
+@* 
+                             <a href="#" class="btn btn-primary hundred">Buy</a>  *@
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="false" style="filter: invert(1)" </span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" >
+        <span class="carousel-control-next-icon" aria-hidden="false" style="filter: invert(1)" </span>        
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <br />
+
+
+    <div class="info light">
+        <div class="container d-flex align-items-center justify-content-center">
+            <div class="container">
+                <div class="row">
+                        <div class="col align-items-start">
+                        <div class="card text-center" style="width: 30rem;">
+                            @*          <img src="..." class="card-img-top" alt="..."> *@
+                            <div class="card-body">
+
+                                <script src="https://code.highcharts.com/stock/highstock.js"></script>
+                                <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+                                <script src="https://code.highcharts.com/stock/modules/drag-panes.js"></script>
+                                <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+                                <script src="https://code.highcharts.com/stock/modules/accessibility.js"></script>
+                                <div id="container"></div>
+
+
+                            </div>
+                        </div>
+
+                        </div>
+                    <div class="col align-items-center"> 
+
+                    </div>
+
+                    <div class="col align-items-end">
+
+                        <div class="card text-center" style="width: 30rem;">
+                            @*          <img src="..." class="card-img-top" alt="..."> *@
+                            <div class="card-body">
+
+                                <!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
+                                <!-- <script src="https://code.highcharts.com/modules/accessibility.js"></script> -->
+                                <div id="containerNotch"></div>
+
+
+                            </div>
+                        </div>
+                    </div>           
+            
+            
+                </div>
+            </div>
+
+          
+    
+
+        </div>
+
+    </div>
+
+
+
+    <br />
+
+    <div class="info light">
+        <div class="container d-flex align-items-center justify-content-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col align-items-start">
+                        <div class="card" style="width: 30rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Signum order book - Buy Orders</h5>
+                                <table class="order_table table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Account</th>
+                                            <th>Qty</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="buy_orders">
+                                    </tbody>
+                                </table>
+                                * Trade also at <a style="font-weight: bold; text-decoration: none;" href="https://www.signumswap.com/tokens/11955007191311588286"><span style="color: black;">Signum</span><span style="color: #8e44ad;">Swap</span></a>
+
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <div class="col align-items-center">
+                    </div>
+
+                    <div class="col align-items-end">
+                        <div class="card" style="width: 30rem;">
+
+                            <div class="card-body">
+                                <h5 class="card-title">Signum order book - Sell Orders</h5>
+                                <table class="order_table table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Account</th>
+                                            <th>Qty</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="sell_orders">
+                                    </tbody>
+                                </table>
+                                * Trade also at <a style="font-weight: bold; text-decoration: none;" href="https://www.signumswap.com/tokens/11955007191311588286"><span style="color: black;">Signum</span><span style="color: #8e44ad;">Swap</span></a>
+
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+
+
+           
+           
+
+        </div>
+
+    </div>
+
+    <br />
+
+
+
+        <div class="container d-flex align-items-center justify-content-center">
+            <div class="card" style="width: 100rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Latest Pool Trades</h5>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Account</th>
+                                <th scope="col">Fees</th>
+                            </tr>
+                        </thead>
+                        <tbody id="status_tbody">
+                        </tbody>
+
+             
+                    </table>
+                </div>
+             </div>
+        </div>
+
+
+                <br />
+
+        <div class="container d-flex align-items-center justify-content-center">
+            <div class="card" style="width: 100rem;">
+                <div class="card-body">
+
+                    <h5 class="card-title">Latest Order Book Trades</h5>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Account</th>                          
+                            </tr>
+                        </thead>
+                        <tbody id="ob_trades_tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    
+
+    <br />
+
+    <div class="status">
+        <h2>Help</h2>
+        <ul>
+            <li><strong>Effective price:</strong> Price per asset including all operational costs</li>
+            <li><strong>Price impact:</strong> Variation on asset price caused by the order</li>
+            <li><strong>Operational costs:</strong> Sum of transaction fee, smart contract fee and pool fee</li>
+            <li><strong>Transaction fee:</strong> Fee for sending one transaction: 0.02 Signa</li>
+            <li><strong>Smart contract fee:</strong> Fee needed for contract activation and calculations: 0.42 Signa</li>
+            <li><strong>Pool fee:</strong> 2% for trades, charged in Signa for buy and or TMG for sale. All transactions need to pay the smart contract fee.</li>
+            <li><strong>Contact:</strong> Join Discord <a href=@Configuration["SiteSettings:Discord"])>SmartC Channel</a> and ask questions at #tmg-pool.</li>
+        </ul>
+
+        <br />
+        
+        <h2>Contract details</h2>
+        <ul>
+            <li>Fee for incoming transactions in Signa is 2%, 1.9% for liquidity providers and 0.1% for owner.</li>
+            <li>Fees distributed at least 24 hours after last distribution, if the amount is greater than 0.42 Signa.</li>
+            <li>Daily TMG distributions will be redistributed to liquidity providers, but discounted 5% for pool owner.</li>
+            <li>Fees collected in TMG will be distributed as TMG to liquidity providers without pool owner fee.</li>
+        <li>More info and contract source code on: <a href="https://github.com/deleterium/SmartC/blob/main/samples/liquidityPool.md">github.com/deleterium/SmartC/blob/main/samples/liquidityPool.md </a> </li>
+        </ul>
+    </div>
+     
+
+    <script src="~/js/tmg.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@('@')signumjs/core/dist/signumjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@('@')signumjs/wallets/dist/signumjs.wallets.min.js"></script>
+
+

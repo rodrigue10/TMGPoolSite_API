@@ -1,0 +1,19 @@
+[Unit]
+Description=TMG Pool Site and API -  .NET Web API App running on Linux
+
+[Service]
+WorkingDirectory=/home/tmg_pool
+ExecStart=/home/tmg_pool/TMG_Site_API
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=30
+# The default value is 90 seconds for most distributions.
+TimeoutStopSec=90
+KillSignal=SIGINT
+SyslogIdentifier=dotnet-tmgsite
+User=root
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_NOLOGO=true
+
+[Install]
+WantedBy=multi-user.target
