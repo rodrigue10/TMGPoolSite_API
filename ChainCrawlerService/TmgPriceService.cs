@@ -32,6 +32,8 @@ namespace TMG_Site_API.ChainCrawlerService
         private  readonly DateTime UtcEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
         private  double OpenPrice = 200.0;
 
+        //Used to help monitor and control service from web-page
+        public bool IsRunning { get; set; }
 
 
         private readonly ILogger<TmgPriceService> _logger;
@@ -53,6 +55,8 @@ namespace TMG_Site_API.ChainCrawlerService
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+
+
             //Give the base hosted service web app some time to load first:
             await Task.Delay(5000, stoppingToken); 
 
@@ -71,13 +75,21 @@ namespace TMG_Site_API.ChainCrawlerService
 
 
 
+
+
                 _logger.LogInformation($"{nameof(TmgPriceService)} starting {nameof(ExecuteAsync)}");
 
                 while (!stoppingToken.IsCancellationRequested)
                 {
+                    IsRunning = true;
 
                     using (var contextTmg = _contextFactoryTmgPoolApi.CreateDbContext() )                
                     {
+
+                        //Testing and thought for future dynamic wiping out DB:
+                           //if(!contextTmg.Database.CanConnect())
+                           // { contextTmg.Database.EnsureCreated(); }
+
                         //Blockchain status test
 
                         BlockChainStatus blockChainStatus = _signumApiService.getBlockChainStatus().Result;
@@ -247,7 +259,7 @@ namespace TMG_Site_API.ChainCrawlerService
             }
             finally
             {
-
+                IsRunning = false;
             }
          
         }

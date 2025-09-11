@@ -35,6 +35,8 @@ namespace TMG_Site_API
 
             builder.Services.AddSwaggerGen();
 
+            //simple service for TMGPrice table lookup:
+            builder.Services.AddScoped<ITmgPoolDataService, TmgPoolDataService>();
 
             //Background worker service
             builder.Services.AddSingleton<TmgPriceService>();
@@ -72,9 +74,7 @@ namespace TMG_Site_API
             {
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<TmgPoolApiContext>();
-                context.Database.EnsureCreated();
-
-                //DbInitializer.Initialize(context);
+                context.Database.EnsureCreated();                     
 
 
             }

@@ -1,0 +1,65 @@
+﻿@page
+@using Microsoft.EntityFrameworkCore
+@using TMG_Site_API.ChainCrawlerService
+@using TMG_Site_API.Data
+@using TMG_Site_API.Models
+@inject ITmgPoolDataService _dataService
+@inject TmgPriceService _priceService
+@model PriceHistoryModel
+
+@{
+    List<TmgPrice> result =  _dataService.GetAllPrices().Result;
+    bool CrawlerStatus = _priceService.IsRunning;
+
+}
+
+
+@if (result == null)
+{
+
+    <p><em>Loading Details...</em></p>
+}
+else
+{
+    <div class="container d-flex align-items-center justify-content-center">
+        <div class="card" style="width: 100rem;">
+            <div class="card-body">
+                <h5 class="card-title">TMG Pool Price Database - ChainCrawler Status: <strong>@CrawlerStatus.ToString().ToUpper()</strong></h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            @foreach(var item in typeof(TmgPrice).GetProperties())
+                            {
+                                    <th scope="col"> @item.Name.ToString()</th>
+                            }                 
+                        </tr>
+					</thead>
+					<tbody>
+                        @foreach (var price in result)
+                        {
+                            <tr>
+                                @foreach (var item in typeof(TmgPrice).GetProperties())
+                                {
+                                    <th scope="col"> @item.GetValue(price)</th>
+                                }
+                                                               
+
+
+                            </tr>
+                        }
+      
+
+					</tbody>
+                
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+
