@@ -1,17 +1,27 @@
+#API Testbed for use in Visual Studio....SwaggerUI pretty much takes care of this case:
+
+
 @TmgPoolApi_HostAddress = http://localhost:5400
 
-GET {{TmgPoolApi_HostAddress}}/weatherforecast/
-Accept: application/json
 
+# Send request or Debug
 GET {{TmgPoolApi_HostAddress}}/getDailyOHLC/
 Accept: application/json
+###
 
+# Send request or Debug
 GET {{TmgPoolApi_HostAddress}}/getLatestPrice/
 Accept: application/json
+###
 
+# Send request or Debug
 GET {{TmgPoolApi_HostAddress}}/getAllPrices/
 Accept: application/json
+###
 
+
+# Send request or Debug
 GET {{TmgPoolApi_HostAddress}}/getPriceAt/
 Accept: application/json
 ###
+
