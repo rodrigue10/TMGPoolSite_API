@@ -108,107 +108,136 @@
 
     <br />
 
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="container d-flex align-items-center justify-content-center">
-                    <div class="card text-center" style="width: 30rem;">
-                        @*          <img src="..." class="card-img-top" alt="..."> *@
-                        <div class="card-body">
-                            <h5 class="card-title">Remove Liquidity</h5>
-@*                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> *@
-                            <table>
-                                <tr><td>lcTMG to remove:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_remove_lctmg"></td></tr>
-                                <tr><td>Operational costs:&nbsp;</td><td><output id="remove_op_cost"></output> Signa</td></tr>
-                                <tr><td>Signa to receive:</td><td><output id="remove_signa"></output></td></tr>
-                                <tr><td>TMG to receive:</td><td><output id="remove_tmg"></output></td></tr>
-                                <tr><td>-</td></tr>
-                            </table>
-                            <button id="btn_remove" class="btn btn-primary hundred">Remove</button><br>
-                            @*                             <a href="#" class="btn btn-primary">Go somewhere</a> *@
-                        </div>
-                    </div>
-
-                </div>
-
+<div id="carouselExampleIndicators" class="carousel carousel-fade " @* data-bs-ride="carousel *@">
+            <div class="carousel-indicators">
+        <button style="filter: invert(1); text-indent: 0!important; width: 500px; height: auto;" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active text" aria-current="true" aria-label="Slide 1">Remove Liquidity</button>
+        <button style="filter: invert(1); text-indent: 0!important; width: 500px; height: auto;" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2" class="text">Add Liquidity</button>
+        <button style="filter: invert(1); text-indent: 0!important; width: 500px; height: auto;" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3" class="text">Sell TMG</button>
+        <button style="filter: invert(1); text-indent: 0!important; width: 500px; height: auto; " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4" class="text">Buy TMG</button>
             </div>
-            <div class="carousel-item">
-                <div class="container d-flex align-items-center justify-content-center">
-                    <div class="card text-center" style="width: 30rem;">
-                        @*          <img src="..." class="card-img-top" alt="..."> *@
-                        <div class="card-body">
-                            <h5 class="card-title">Add Liquidity</h5>
-@*                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> *@
-                            <table>
-                            <tr><td>TMG to add:</td><td> <input class="input-group"  type="number" style="width: 25ch;" id="ipt_add_tmg"></td></tr>
-                            <tr><td>Signa to add:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_add_signa"></td></tr>
-                                <tr><td>Operational costs:&nbsp;</td><td><output id="add_op_cost"></output> Signa</td></tr>
-                                <tr><td>To be refunded:</td><td><output id="add_refunded_signa"></output> Signa and <output id="add_refunded_tmg"></output> TMG</td></tr>
-                                <tr><td>Added liquidity:</td><td><output id="add_lctmg"></output> lcTMG</td></tr>                               
-                            </table>
-                            <button id="btn_add" class="btn btn-primary hundred">Add</button><br>
-                            @* <a href="#" class="btn btn-primary">Go somewhere</a> *@
+     
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="container d-flex align-items-center justify-content-center">
+                        <div class="card text-center" style="width: 30rem;">
+                            @*          <img src="..." class="card-img-top" alt="..."> *@
+                            <div class="card-body">
+                                <h5 class="card-title">Remove Liquidity</h5>
+                                @*                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> *@
+                                <table>
+                                    <tr><td>lcTMG to remove:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_remove_lctmg"></td></tr>
+                                    <tr><td>Operational costs:&nbsp;</td><td><output id="remove_op_cost"></output> Signa</td></tr>
+                                    <tr><td>Signa to receive:</td><td><output id="remove_signa"></output></td></tr>
+                                    <tr><td>TMG to receive:</td><td><output id="remove_tmg"></output></td></tr>
+                                    <tr><td>-</td></tr>
+                                </table>
+                                <br />
+                                <button id="btn_remove" class="btn btn-primary hundred">Remove</button>
+                                <br>
+                              
+                                @*                             <a href="#" class="btn btn-primary">Go somewhere</a> *@
+                            </div>
                         </div>
+
                     </div>
-
+                    <br>
+                    <br>
+                    <br>
                 </div>
-
-            </div>
-            <div class="carousel-item">
-                <div class="container d-flex align-items-center justify-content-center">
-                    <div class="card text-center" style="width: 30rem;">
-                        @*          <img src="..." class="card-img-top" alt="..."> *@
-                        <div class="card-body">
-                            <h5 class="card-title">Sell TMG</h5>
-@*                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> *@
-                            <table>
-                            <tr><td>TMG to sell:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_sell_tmg"></td></tr>
-                                <tr><td>Effective price:</td><td><output id="sell_effective_price"></output> Signa</td></tr>
-                                <tr><td>Price impact:</td><td><output id="sell_price_impact"></output>%</td></tr>
-                                <tr><td>Operational costs:&nbsp;</td><td><output id="sell_op_cost_signa"></output> Signa and <output id="sell_op_cost_tmg"></output> TMG</td></tr>
-                            <tr><td>Signa to receive:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_sell_signa"></td></tr>
-                            </table>
-                            <button id="btn_sell" class="btn btn-primary hundred">Sell</button><br>
-                            @* <a href="#" class="btn btn-primary">Go somewhere</a> *@
+                <div class="carousel-item">
+                    <div class="container d-flex align-items-center justify-content-center">
+                        <div class="card text-center" style="width: 30rem;">
+                            @*          <img src="..." class="card-img-top" alt="..."> *@
+                            <div class="card-body">
+                                <h5 class="card-title">Add Liquidity</h5>
+                                @*                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> *@
+                                <table>
+                                    <tr><td>TMG to add:</td><td> <input class="input-group" type="number" style="width: 25ch;" id="ipt_add_tmg"></td></tr>
+                                    <tr><td>Signa to add:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_add_signa"></td></tr>
+                                    <tr><td>Operational costs:&nbsp;</td><td><output id="add_op_cost"></output> Signa</td></tr>
+                                    <tr><td>To be refunded:</td><td><output id="add_refunded_signa"></output> Signa and <output id="add_refunded_tmg"></output> TMG</td></tr>
+                                    <tr><td>Added liquidity:</td><td><output id="add_lctmg"></output> lcTMG</td></tr>
+                                </table>
+                                    <br />
+                                <button id="btn_add" class="btn btn-primary hundred">Add</button>
+                                <br>
+                            
+                                @* <a href="#" class="btn btn-primary">Go somewhere</a> *@
+                            </div>
                         </div>
+
                     </div>
-
+                    <br>
+                    <br>
+                    <br>
                 </div>
+                <div class="carousel-item">
+                    <div class="container d-flex align-items-center justify-content-center">
+                        <div class="card text-center row" style="width: 30rem;">
+                            @*          <img src="..." class="card-img-top" alt="..."> *@
+                            <div class="card-body">
+                                <h5 class="card-title">Sell TMG</h5>
+                                @*                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> *@
+                                <table>
+                                    <tr><td>TMG to sell:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_sell_tmg"></td></tr>
+                                    <tr><td>Effective price:</td><td><output id="sell_effective_price"></output> Signa</td></tr>
+                                    <tr><td>Price impact:</td><td><output id="sell_price_impact"></output>%</td></tr>
+                                    <tr><td>Operational costs:&nbsp;</td><td><output id="sell_op_cost_signa"></output> Signa and <output id="sell_op_cost_tmg"></output> TMG</td></tr>
+                                    <tr><td>Signa to receive:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_sell_signa"></td></tr>
+                                </table>
+                                <br />
+                                <button id="btn_sell" class="btn btn-primary hundred">Sell</button>
+                                <br>
+                              
+                    
+                                @* <a href="#" class="btn btn-primary">Go somewhere</a> *@
+                            </div>
+                        </div>                            
+                       
 
-            </div>
-            <div class="carousel-item">
-                <div class="container d-flex align-items-center justify-content-center">
-                    <div class="card text-center" style="width: 30rem;">
-                        @*          <img src="..." class="card-img-top" alt="..."> *@
-                        <div class="card-body">
-                            <h5 class="card-title">Buy TMG</h5>
-@*                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> *@
-                            <table>
-                            <tr><td>TMG to buy:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_buy_tmg"></td></tr>
-                                <tr><td>Effective price:</td><td><output id="buy_effective_price"></output> Signa</td></tr>
-                                <tr><td>Price impact:</td><td><output id="buy_price_impact"></output>%</td></tr>
-                                <tr><td>Operational costs:&nbsp;</td><td><output id="buy_op_cost"></output> Signa</td></tr>
-                            <tr><td>Total cost:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_buy_signa"></td></tr>
-                            </table>
-                            <button id="btn_buy" class="btn btn-primary hundred">Buy</button>
-@* 
+                    </div>
+                    <br>
+                    <br>
+                    <br />
+                </div>
+                <div class="carousel-item">
+                 <div class="container d-flex align-items-center justify-content-center">
+                        <div class="card text-center" style="width: 30rem;">
+                            @*          <img src="..." class="card-img-top" alt="..."> *@
+                            <div class="card-body">
+                                <h5 class="card-title">Buy TMG</h5>
+                                @*                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> *@
+                                <table>
+                                    <tr><td>TMG to buy:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_buy_tmg"></td></tr>
+                                    <tr><td>Effective price:</td><td><output id="buy_effective_price"></output> Signa</td></tr>
+                                    <tr><td>Price impact:</td><td><output id="buy_price_impact"></output>%</td></tr>
+                                    <tr><td>Operational costs:&nbsp;</td><td><output id="buy_op_cost"></output> Signa</td></tr>
+                                    <tr><td>Total cost:</td><td><input class="input-group" type="number" style="width: 25ch;" id="ipt_buy_signa"></td></tr>
+                                </table>
+                                <br />
+                                <button id="btn_buy" class="btn btn-primary hundred">Buy</button>
+                                <br>
+                            
+                                @* 
                              <a href="#" class="btn btn-primary hundred">Buy</a>  *@
+                            </div>
                         </div>
+
                     </div>
-
+                    <br>
+                    <br>
+                    <br />
                 </div>
+            </div>                   
 
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="false" style="filter: invert(1)" </span>
+@*         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="false" style="filter: invert(1)"></span>
             <span class="visually-hidden">Previous</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" >
-        <span class="carousel-control-next-icon" aria-hidden="false" style="filter: invert(1)" </span>        
+        <span class="carousel-control-next-icon" aria-hidden="false" style="filter: invert(1)"></span>        
             <span class="visually-hidden">Next</span>
-        </button>
+        </button> *@
     </div>
 
     <br />
