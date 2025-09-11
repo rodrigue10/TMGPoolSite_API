@@ -24,4 +24,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TmgPoolApiContext-a7f2b15f-c461-4a3a-bf25-e507c801cd4c.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

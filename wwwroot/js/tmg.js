@@ -256,7 +256,7 @@ const Config = {
     networkName: "Signum",
     slippageMessage: "ATTENTION: Shown only once\n\nCalculations are only valid if your transaction is the only one between the the time the page loads and the transaction be processed by the smart contract. Actual received values may differ.",
     ordersToShow: "4",
-    tmgApiAddress: "http://localhost:5400/api"
+    tmgApiAddress: "https://test-tmg-pool.signum-chain.com/api"
 }
 
 const Global = {
