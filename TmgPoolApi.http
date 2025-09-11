@@ -1,0 +1,17 @@
+@TmgPoolApi_HostAddress = http://localhost:5400
+
+GET {{TmgPoolApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+GET {{TmgPoolApi_HostAddress}}/getDailyOHLC/
+Accept: application/json
+
+GET {{TmgPoolApi_HostAddress}}/getLatestPrice/
+Accept: application/json
+
+GET {{TmgPoolApi_HostAddress}}/getAllPrices/
+Accept: application/json
+
+GET {{TmgPoolApi_HostAddress}}/getPriceAt/
+Accept: application/json
+###
