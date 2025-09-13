@@ -3,15 +3,26 @@
 @using TMG_Site_API.ChainCrawlerService
 @using TMG_Site_API.Data
 @using TMG_Site_API.Models
+@using TMG_Site_API.NodeAPI.Services
 @inject ITmgPoolDataService _dataService
 @inject TmgPriceService _priceService
+@inject ISignumAPIService _signumApiService;
 @model PriceHistoryModel
 
 @{
+    const double acceptRatio = 99.98;
     List<TmgPrice> result =  _dataService.GetAllPrices().Result;
     bool CrawlerStatus = _priceService.IsRunning;
 
+    var bcstatus = _signumApiService.getBlockChainStatus().Result;   
+
+    var currentheight = result.Max(mbox => mbox.BlockHeight);
+
+    double ratio = double.Round(((double)currentheight / (double)bcstatus.LastBlockchainFeederHeight*100.0),2);
+
+    var time = _priceService.CurrentTime.AddMilliseconds(_priceService.UpdateTime);
 }
+
 
 
 @if (result == null)
@@ -21,10 +32,33 @@
 }
 else
 {
+       <div class="container d-flex align-items-center justify-content-center">
+        <div class="card" style="width: 100rem;">
+            <div class="card-body">
+
+    @*//Add in hide/show logic for Status?*@
+    @if(ratio < acceptRatio)
+    {
+        <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="@ratio" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar" style="@string.Format("width: {0}%", ratio)">Database is syncing: @ratio %</div>
+        </div>
+
+    }
+    else
+    {
+        <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="@ratio" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar bg-success" style="@string.Format("width: {0}%", ratio)">Database is within acceptable range: @ratio %</div>
+        </div>
+    }
+    </div></div></div>
+
+
+
+
     <div class="container d-flex align-items-center justify-content-center">
         <div class="card" style="width: 100rem;">
             <div class="card-body">
-                <h5 class="card-title">TMG Pool Price Database - ChainCrawler Status: <strong>@CrawlerStatus.ToString().ToUpper()</strong></h5>
+                <h5 class="card-title">TMG Pool Price Database - ChainCrawler Status: <strong>@CrawlerStatus.ToString().ToUpper()</strong> - Sleeping: @_priceService.IsSleep.ToString().ToUpper() - until @time.ToLocalTime()</h5>
                 <table class="table table-striped">
                     <thead>
                         <tr>

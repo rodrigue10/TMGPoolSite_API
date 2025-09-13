@@ -1,6 +1,4 @@
-window.onload = async function () {
-
-   
+window.onload = async function () {  
 
 
     document.getElementById("btn_link").addEventListener('click', function () { activateWalletXT(showError) })
@@ -20,11 +18,12 @@ window.onload = async function () {
 
     document.getElementById("ipt_remove_lctmg").addEventListener('keyup', evtCalculateRemove)
     document.getElementById("btn_remove").addEventListener('click', evtRemove)
+   
 
    
 
     // Old version data
-    localStorage.removeItem("tmg_pool_chart_data")
+    localStorage.removeItem("tmg_pool_chart_data2")
 
     // consistency check
     const chartData = localStorage.getItem("tmg_pool_chart_data2")
@@ -181,6 +180,8 @@ window.onload = async function () {
             lineWidth: 1,
             gridLineWidth: 1,
             title: null,
+            min: 1, // Logarithmic scales cannot start at 0
+            type: 'logarithmic', // Use 'logarithmic' for the scale
             tickWidth: 1,
             tickLength: 5,
             tickPosition: 'inside',
@@ -194,6 +195,8 @@ window.onload = async function () {
             lineWidth: 1,
             gridLineWidth: 0,
             title: null,
+            min: 1, // Logarithmic scales cannot start at 0
+            type: 'logarithmic', // Use 'logarithmic' for the scale
             tickWidth: 1,
             tickLength: 5,
             tickPosition: 'inside',
@@ -883,12 +886,14 @@ async function updateLinkedAccount() {
     if (Global.walletResponse === null || Global.walletResponse === undefined) {
         // Not linked
         document.getElementById('user_rs').innerText = "Not linked"
+        document.getElementById('user_rs2').innerText = "Not linked"
         disableLinkedInfo()
         return
     }
     // linked
     enableLinkedInfo()
     document.getElementById('user_rs').innerText = idTOaccount(Global.walletResponse.accountId)
+    document.getElementById('user_rs2').innerText = idTOaccount(Global.walletResponse.accountId)
 
     try {
         await getExtendedAccountInfo()
@@ -898,6 +903,7 @@ async function updateLinkedAccount() {
     }
 
     document.getElementById('user_rs').innerText = idTOaccount(Global.walletResponse.accountId)
+    document.getElementById('user_rs2').innerText = idTOaccount(Global.walletResponse.accountId)
     document.getElementById('user_name').innerText = Global.extendedInfo.name
 
     document.getElementById('user_signa').innerText = formatAmount(Global.extendedInfo.signa, 8)

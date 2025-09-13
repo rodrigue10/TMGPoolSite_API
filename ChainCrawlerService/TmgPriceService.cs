@@ -25,15 +25,19 @@ namespace TMG_Site_API.ChainCrawlerService
     public class TmgPriceService : BackgroundService
     {
         //Initialize some defaults:
-        private int UpdateTime = 5000;
+        public int UpdateTime = 5000;
         private string ContractId = "";
         private string TokenId = "";
-        private int FirstGoodBlock = 1052615;
+        public int FirstGoodBlock = 1052615;
         private  readonly DateTime UtcEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
         private  double OpenPrice = 200.0;
+        public DateTime CurrentTime { get; set; } = DateTime.Now;
 
+        public int MaxBlockHeight = 0;
         //Used to help monitor and control service from web-page
         public bool IsRunning { get; set; }
+
+        public bool IsSleep { get; set; } = false;
 
 
         private readonly ILogger<TmgPriceService> _logger;
@@ -94,8 +98,8 @@ namespace TMG_Site_API.ChainCrawlerService
 
                         BlockChainStatus blockChainStatus = _signumApiService.getBlockChainStatus().Result;
                         
-                        int maxBlockHeight = blockChainStatus.LastBlockchainFeederHeight;                      
-
+                        int maxBlockHeight = blockChainStatus.LastBlockchainFeederHeight;
+                        MaxBlockHeight = maxBlockHeight;
 
                         //Get Current AT:
                         GetAT getCurrentAt = _signumApiService.getAT(ContractId).Result;
@@ -240,11 +244,14 @@ namespace TMG_Site_API.ChainCrawlerService
 
                     }
 
-                 //   _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                    //   _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
 
 
-                    // Your background task logic goes here
+                    //Waiting out to try finding more data:
+                    IsSleep = true;
+                    CurrentTime = DateTime.Now;
+
                     await Task.Delay(UpdateTime, stoppingToken); // Example: delay for 1 second
 
 

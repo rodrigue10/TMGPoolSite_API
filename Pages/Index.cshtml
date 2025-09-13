@@ -6,13 +6,13 @@
     ViewData["Title"] = "TMG Liquidity Pool";
 }
 
-    @* <!-- Button trigger modal -->
+     @* <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_window">
         Launch demo modal
      </button>*@
 
 <!-- Modal -->
-<div class="modal fade" id="modal_window" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@* <div class="modal fade" id="modal_window" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -24,13 +24,13 @@
                 <h2 id="modal_text">Pure Vanilla JavaScript</h2>
                 
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer"> *@
              @*    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button> *@
 @*                 <button type="button" class="btn btn-primary">Save changes</button> *@
-            </div>
+@*             </div>
         </div>
     </div>
-</div>
+</div>  *@
      
     <header>
         <div><h2>TMG Liquidity Pool - deleterium AT</h2>Buy and sell TMG tokens at Signum cryptocurrency. <small>(@Configuration["SiteSettings:Version"])</small></div>
@@ -78,14 +78,14 @@
                                 </div>
                                 </div>                           
                         </h5>
-                        <div class="modal" id="modal_window">
+@*                         <div class="modal" id="modal_window">
                             <div class="modal-bg modal-exit"></div>
                             <div class="modal-container">
                                 <h1 id="modal_heading_text">Error...</h1>
                                 <h2 id="modal_text">Pure Vanilla JavaScript</h2>
                                 <button class="modal-close modal-exit">X</button>
                             </div>
-                        </div>
+                        </div> *@
                         <div class="box" name="linked" style="display: none;"> 
                             <table>
                                 <tr><td><strong>Name:</strong></td><td><output id="user_name"></output></td></tr>
@@ -111,9 +111,9 @@
 <div id="carouselExampleIndicators" class="carousel carousel-fade " @* data-bs-ride="carousel *@">
             <div class="carousel-indicators">
         <button style="filter: invert(1); text-indent: 0!important; width: 500px; height: auto;" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active text" aria-current="true" aria-label="Slide 1">Remove Liquidity</button>
-        <button style="filter: invert(1); text-indent: 0!important; width: 500px; height: auto;" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2" class="text">Add Liquidity</button>
+        <button style="filter: invert(1); text-indent: 0!important; width: 500px; height: auto;" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2" class=" text">Add Liquidity</button>
         <button style="filter: invert(1); text-indent: 0!important; width: 500px; height: auto;" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3" class="text">Sell TMG</button>
-        <button style="filter: invert(1); text-indent: 0!important; width: 500px; height: auto; " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4" class="text">Buy TMG</button>
+        <button style="filter: invert(1); text-indent: 0!important; width: 500px; height: auto;" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4" class="text">Buy TMG</button>
             </div>
      
             <div class="carousel-inner">
@@ -450,8 +450,6 @@
     </div>
      
 
-    <script src="~/js/tmg.js" asp-append-version="true"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@('@')signumjs/core/dist/signumjs.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@('@')signumjs/wallets/dist/signumjs.wallets.min.js"></script>
+
 
 

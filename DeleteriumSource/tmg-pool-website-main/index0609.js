@@ -19,7 +19,7 @@ window.onload = async function () {
     document.getElementById("btn_remove").addEventListener('click', evtRemove)
 
     // Old version data
-    localStorage.removeItem("tmg_pool_chart_data")
+    localStorage.removeItem("tmg_pool_chart_data2")
 
     const exits = document.querySelectorAll('.modal-exit');
     exits.forEach(function (exit) {

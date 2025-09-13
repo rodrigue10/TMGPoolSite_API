@@ -1,18 +1,53 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TMG Liquidity Pool</title>
     <script type="importmap"></script>
+    <script src="~/js/tmg.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@('@')signumjs/core/dist/signumjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@('@')signumjs/wallets/dist/signumjs.wallets.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TMG_Site_API.styles.css" asp-append-version="true" />
+
 </head>
-<body>      
+<body>
+
+    @* <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_window">
+        Launch demo modal
+     </button>*@
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal_window" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h1 id="modal_heading_text">Error...</h1>
+                    <h2 id="modal_text">Pure Vanilla JavaScript</h2>
+
+                </div>
+                <div class="modal-footer">
+                    @*    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button> *@
+                    @*                 <button type="button" class="btn btn-primary">Save changes</button> *@
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="fixed-top navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3" data-bs-theme="dark">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">TMG Liquidity Pool</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -25,16 +60,25 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/PriceHistoryModel">Home</a>
                         </li> *@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/swagger/index.html">Swagger API Page</a>
+                            <a class="nav-link text-light" href="/swagger/index.html">Swagger API Page</a>
                         </li>
                                                 <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/PriceHistory">Price DB</a>
+                            <a class="nav-link text-light" asp-area="" asp-page="/PriceHistory">Price DB</a>
                         </li>
+                 @*        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-page="/TmgLotto">TMG Lotto</a>
+                        </li> *@
                     </ul>
                 </div>
+                <div class="col-md-auto text-light">
+                    <output id="user_rs2"></output>
+                </div>
+               
             </div>
         </nav>
+        <div id="navspacer" style=" padding-top: 100px;"></div> @* Navigation bar buffer for page content so nav bar isn't overlaying them*@
     </header>
+ 
     
     <div class="container">
         <main role="main" class="pb-3">
@@ -42,7 +86,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <div id="footerspacer" style=" padding-bottom: 100px;"></div> @* Navigation bar buffer for page content so nav bar isn't overlaying them*@
+    <div class="push"></div> <!-- This div pushes content above the footer -->
+    <footer class="border-top footer text-muted fixed-bottom">
 
         <div class="container">
             &nbsp;
@@ -55,9 +101,7 @@
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
