@@ -20,7 +20,7 @@
 
     double ratio = double.Round(((double)currentheight / (double)bcstatus.LastBlockchainFeederHeight*100.0),2);
 
-    var time = _priceService.CurrentTime.AddMilliseconds(_priceService.UpdateTime);
+    var time = _priceService.CurrentTime.AddMilliseconds(_priceService.UpdateTime).ToLocalTime() ;
 }
 
 

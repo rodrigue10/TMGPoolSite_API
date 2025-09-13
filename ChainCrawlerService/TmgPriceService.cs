@@ -31,7 +31,7 @@ namespace TMG_Site_API.ChainCrawlerService
         public int FirstGoodBlock = 1052615;
         private  readonly DateTime UtcEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
         private  double OpenPrice = 200.0;
-        public DateTime CurrentTime { get; set; } = DateTime.Now;
+        public DateTime CurrentTime { get; set; } = DateTime.UtcNow;
 
         public int MaxBlockHeight = 0;
         //Used to help monitor and control service from web-page
@@ -250,7 +250,7 @@ namespace TMG_Site_API.ChainCrawlerService
 
                     //Waiting out to try finding more data:
                     IsSleep = true;
-                    CurrentTime = DateTime.Now;
+                    CurrentTime = DateTime.UtcNow;
 
                     await Task.Delay(UpdateTime, stoppingToken); // Example: delay for 1 second
 
