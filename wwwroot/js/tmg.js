@@ -787,7 +787,7 @@ async function activateWalletXT(errorCallback) {
             }
             localStorage.setItem("acceptedSlippage","true");
         }
-        Global.wallet = new sig$wallets.GenericExtensionWallet();
+        Global.wallet = new sig$wallets.ExtensionWallet();
         try {
             Global.walletResponse = await Global.wallet.connect({
                 appName: Config.appName ,
